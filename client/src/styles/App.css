@@ -1,0 +1,100 @@
+body {
+    background-color: #FFFEFA;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+}
+
+.contentwrapper {
+    margin: auto;
+    margin-top: 1rem;
+    max-width: 1200px;
+}
+
+.outerbox {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 1rem;
+}
+
+.innerbox {
+    aspect-ratio: 1 / 1;
+    max-width: 15rem;
+    background-color: #3C5AA6;
+    color: #F8F8F8;
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 200px;
+    border: 4px solid #1D2C5E;
+
+    font-size: 2rem;
+}
+
+.innerbox:hover {
+    color: #3C5AA6;
+    background-color: #F8F8F8;
+}
+
+.sprite {
+    width: 100px;
+}
+
+.author {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.userimage {
+    aspect-ratio: 1 / 1;
+    width: 50px;
+    border-radius: 25px;
+}
+
+.buttoncontainer {
+    max-width: 1200px;
+    min-width: 1000px;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 3rem;
+}
+
+.button {
+    margin: 0rem;
+    padding: .5rem;
+    border: none;
+    background-color: inherit;
+    border-radius: 8px;
+}
+
+.button:hover {
+    background-color: #1D2C5E;
+    color: white;
+    cursor: pointer;
+}
+
+.pagenumber {
+    width: 20px;
+    margin: 0px;
+}
+
+.forumentrylink {
+    text-decoration: none;
+    color: black;
+}
+
+.forumentrylink:visited {
+    color: inherit;
+}

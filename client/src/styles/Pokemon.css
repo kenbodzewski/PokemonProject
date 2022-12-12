@@ -1,0 +1,49 @@
+.pokepic {
+    max-width: 225px;
+}
+
+.pokemoncard {
+    max-width: 225px;
+    border: 4px solid #9AD2F5;
+    border-radius: 20px;
+    padding: 1rem;
+    margin: 1rem;
+    background-color: #F0F7FB;
+}
+
+.info {
+    border-top: 2px solid #9AD2F5;
+}
+
+.pokename {
+    font-weight: bold;
+    margin-top: .5rem;
+}
+
+.likecontainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: .25rem;
+}
+
+.likebutton {
+    background-color: #7DAD71;
+    border-radius: 8px;
+    border: none;
+    color: #255319;
+}
+
+.unlikebutton {
+    background-color: #CD5C5C;
+    border-radius: 8px;
+    border: none;
+    color: #751919;
+}
+
+.likebutton:hover{
+    cursor: pointer;
+}
+
+.unlikebutton:hover{
+    cursor: pointer;
+}

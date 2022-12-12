@@ -1,0 +1,24 @@
+.userprofile {
+    max-width: 700px;
+    margin: auto;
+    margin-top: 1rem;
+}
+
+.userinfo {
+    margin-top: .5rem;
+}
+
+.logout {
+    padding: .5rem;
+    background-color: #CD5C5C;
+    color: #751919;
+    border-radius: 8px;
+    border: 1px solid #751919;
+}
+
+.logout:hover {
+    cursor: pointer;
+    background-color: #751919;
+    border: 1px solid #CD5C5C;
+    color: #CD5C5C;
+}

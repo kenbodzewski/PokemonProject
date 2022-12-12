@@ -1,0 +1,21 @@
+.createforumentry {
+    max-width: 800px;
+    margin: auto;
+}
+
+.titleinput {
+    width: 40%;
+    margin-top: 2rem;
+}
+
+.textinput {
+    width: 80%;
+    height: 100px;
+    margin-top: 1rem;
+}
+
+.submitinput {
+    width: 80%;
+    margin-top: .5rem;
+    margin-left: .15rem;
+}

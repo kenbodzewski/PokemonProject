@@ -1,0 +1,26 @@
+user:
+    _id
+    __type (user or admin)
+    username
+    email
+    picture
+
+forumEntries:
+    _id
+    author: author's ID, (use this Id to get the User's name, this way if someone's username changes they will change here)
+    date: {
+        type: Date, 
+        default: new Date(),
+    },
+    entryTitle: String
+    entryMessage: String
+
+comments:
+    forumEntry ID: 
+    author: 
+    date: 
+    message: 
+
+likes:
+    user: username
+    pokemon: pokemonName
