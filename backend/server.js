@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.json()); // this allows the server to take in a json in the body of an http request
 
 app.get('/', (req, res) => { // if there is a get request at home then return the res.send('Hello World!)
-  res.send('Hello World!'); 
+  res.send('PokemonProject Back End'); 
 })
 
 /**

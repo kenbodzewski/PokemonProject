@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import useAuth from '../store/Auth';
 
 import pokeball from '../images/pokeball.png';
-import { json } from 'react-router-dom';
 
 export default function Pokemon(props) { // url
 	const { userProfile } = useAuth();
