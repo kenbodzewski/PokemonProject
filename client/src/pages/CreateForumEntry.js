@@ -8,13 +8,15 @@ import "../styles/CreateForumEntry.css";
 
 export default function CreateForumEntry() {
     const { register, handleSubmit } = useForm();
-    const { userProfile, addUser, removeUser } = useAuth();
+    const { userProfile } = useAuth();
 
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
         data.authorId = userProfile._id;
-        fetch("http://localhost:3001/forumEntry", {
+        // added this so that it will set date to current time rather than when server is booted up
+        data.date = Date.now(); 
+        fetch("/forumEntry", {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -25,7 +27,7 @@ export default function CreateForumEntry() {
     };
   
     return (
-        <div className='contentwrapper'>
+        <div className='forumwrapper'>
             <Link to="/Forum" className='back'>&lt; Back to Forum</Link>
             <form onSubmit={handleSubmit(onSubmit)} className="createforumentry">
                 <input { ...register("entryTitle") } placeholder="Title" className="titleinput" />

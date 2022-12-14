@@ -1,0 +1,29 @@
+.search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: auto;
+    margin-top: 1rem;
+}
+
+.searchform {
+    margin: auto;
+    margin-top: 1rem;
+    display: flex;
+}
+
+.searchinput {
+    margin: auto;
+    width: 80%;
+}
+
+.searchresults {
+    display: flex;
+    justify-content: center;
+}
+
+.noresults {
+    margin-top: 1rem;
+}
+

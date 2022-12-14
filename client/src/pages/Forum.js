@@ -4,17 +4,18 @@ import { Link } from 'react-router-dom';
 
 import useAuth from '../store/Auth';
 import ForumEntry from '../components/ForumEntry';
+import '../styles/Forum.css';
 
 export default function Forum() {
     // allows us to use the userProfile and the removeUser to get user info and logout
-	const { userProfile, addUser, removeUser } = useAuth();
+	const { userProfile } = useAuth();
 
     const [ state, setState ] = useState([]);
     
     const entries = async () => {
         // notice that the call to the endpoint is to forumEntries, not forum
-        const response = await fetch("http://localhost:3001/forumEntries")
-        const responseJson = await response.json()
+        const response = await fetch("/forumEntries");
+        const responseJson = await response.json();
         setState(responseJson);
     };
     
@@ -23,7 +24,7 @@ export default function Forum() {
     }, [])
 
     return (
-        <div className='contentwrapper'>
+        <div className='forumwrapper'>
             {state.map((entry) => {
                 return (
                     <Link to={"/ForumEntry/" + entry._id } key={ entry._id } className="forumentrylink">

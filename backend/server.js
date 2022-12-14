@@ -13,7 +13,7 @@ import Comment from './models/comments.js';
 dotenv.config() // allows us to make reference to variables in the .env file
 
 const app = express() // creates the server
-const port = 3001
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json()); // this allows the server to take in a json in the body of an http request
@@ -119,6 +119,23 @@ app.get('/user/:id', async (req, res) => {
   }
 })
 
+// post to update user at /user
+app.post('/user/:id', async (req, res) => {
+  try {
+    // https://mongoosejs.com/docs/tutorials/findoneandupdate.html
+    const filter = {
+      _id: req.params.id
+    }
+    const update = req.body;
+    let user = await User.findOneAndUpdate(filter, update, {
+      new: true
+    });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(409).json({ message: error.message })
+  }
+})
+
 
 /**
  * HTTP request for Like
@@ -192,7 +209,7 @@ const connection_url = process.env.CONNECTION_URL;
 // connecting to mongodb
 mongoose.connect(connection_url) 
   .then(() => app.listen(
-    port, () => console.log(`Server running on port: ${port}`)
+    PORT, () => console.log(`Server running on port: ${PORT}`)
   ))
   .catch((error) => console.log(error.message));
 

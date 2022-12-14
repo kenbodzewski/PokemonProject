@@ -1,7 +1,68 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+
+import Pokemon from '../components/Pokemon';
+import '../styles/Search.css';
 
 export default function Search() {
+  const { register, handleSubmit } = useForm();
+  const [ pokemonName, setPokemonName ] = useState("");
+  const [ error, setError ] = useState(true);
+
+
+  const search = (searchText) => {
+    setPokemonName(searchText);
+    // console.log(pokemonName);
+  } 
+  
+  const onSubmit = (data) => {
+    setPokemonName(data.searchinput);
+  };
+
+  useEffect(() => {
+    async function fetchData(){
+      if(pokemonName){
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+        if (!response.ok){
+          // console.log(response.ok);
+          setError(true);
+        } else {
+          setError(false);
+        }
+      }
+    }
+    fetchData(); 
+  }, [pokemonName])
+
   return (
-    <div>Search</div>
+    <div className="search">
+      <div>Enter a Pokemon's name or a number between 1 and 905 inclusive:</div>
+      <form onSubmit={handleSubmit(onSubmit)} className="searchform">
+        <input
+          type="search"
+          placeholder="Search for Pokemon"
+          {...register("searchinput")}
+          required
+          className="searchinput"
+        />
+        <input 
+          value="Search" 
+          type="submit" 
+          className="searchbutton" 
+        />
+      </form>
+      <div className='searchresults'>
+        {error ? ( 
+          (pokemonName === "") ? (
+            <></>
+          ) : (
+            <div className='noresults'>No such Pokemon exists...</div>
+          )  
+        ) : (
+          <Pokemon url={ "https://pokeapi.co/api/v2/pokemon/" + pokemonName } ></Pokemon>
+        )}
+      </div>
+    </div>
   )
 }

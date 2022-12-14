@@ -5,7 +5,7 @@ const entrySchema = new Schema({
     authorId: String,
     date: {
         type: Date, 
-        default: new Date(),
+        default: Date.now(),
     },
     entryTitle: String,
     entryMessage: String

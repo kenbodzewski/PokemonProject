@@ -6,7 +6,7 @@ const commentSchema = new Schema({
     forumEntryId: String,
     date: {
         type: Date, 
-        default: new Date(),
+        default: Date.now(),
     },
     commentMessage: String
 });

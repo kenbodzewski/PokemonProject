@@ -6,7 +6,7 @@ export const createOrGetUserAndLogin = async (response, addUser) => {
 
     const { name, picture, sub, email } = decoded;
 
-    const user = {
+    let user = {
         _id: sub,
         _type: 'user',
         userName: name,
@@ -14,20 +14,22 @@ export const createOrGetUserAndLogin = async (response, addUser) => {
         image: picture
     }
 
-    const check = await fetch('http://localhost:3001/user/' + user._id)
+    const check = await fetch('/user/' + user._id)
         .then(res => res.json())
 
     // if check is equal to null that means that this user does not exist
     // in the database already
     // is there a situation where this wont work??
     if (check == null){
-        await fetch('http://localhost:3001/user', {
+        await fetch('/user/', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json'
             }
         }); // add catch?
+    } else {
+        user = check;
     }
 
     // login, addUser is in /store/Auth.js
