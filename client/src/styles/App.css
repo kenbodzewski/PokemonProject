@@ -8,6 +8,7 @@ body {
     margin: auto;
     margin-top: 1rem;
     max-width: 1200px;
+    min-height: 60vh;
 }
 
 .outerbox {
@@ -68,7 +69,7 @@ body {
     min-width: 1000px;
     display: flex;
     justify-content: space-around;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 .button {
@@ -97,4 +98,15 @@ body {
 
 .forumentrylink:visited {
     color: inherit;
+}
+
+.footercontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.privacylink {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

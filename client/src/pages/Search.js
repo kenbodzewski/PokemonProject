@@ -36,32 +36,34 @@ export default function Search() {
   }, [pokemonName])
 
   return (
-    <div className="search">
-      <div>Enter a Pokemon's name or a number between 1 and 905 inclusive:</div>
-      <form onSubmit={handleSubmit(onSubmit)} className="searchform">
-        <input
-          type="search"
-          placeholder="Search for Pokemon"
-          {...register("searchinput")}
-          required
-          className="searchinput"
-        />
-        <input 
-          value="Search" 
-          type="submit" 
-          className="searchbutton" 
-        />
-      </form>
-      <div className='searchresults'>
-        {error ? ( 
-          (pokemonName === "") ? (
-            <></>
+    <div className='searchcontainer'>
+      <div className="search">
+        <div className='instructions'>Enter a Pokemon's name or a number from 1 to 905:</div>
+        <form onSubmit={handleSubmit(onSubmit)} className="searchform">
+          <input
+            type="search"
+            placeholder="Search for Pokemon"
+            {...register("searchinput")}
+            required
+            className="searchinput"
+          />
+          <input 
+            value="Search" 
+            type="submit" 
+            className="searchbutton" 
+          />
+        </form>
+        <div className='searchresults'>
+          {error ? ( 
+            (pokemonName === "") ? (
+              <></>
+            ) : (
+              <div className='noresults'>No such Pokemon exists...</div>
+            )  
           ) : (
-            <div className='noresults'>No such Pokemon exists...</div>
-          )  
-        ) : (
-          <Pokemon url={ "https://pokeapi.co/api/v2/pokemon/" + pokemonName } ></Pokemon>
-        )}
+            <Pokemon url={ "https://pokeapi.co/api/v2/pokemon/" + pokemonName } ></Pokemon>
+          )}
+        </div>
       </div>
     </div>
   )

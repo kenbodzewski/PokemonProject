@@ -2,6 +2,7 @@
     max-width: 700px;
     margin: auto;
     margin-top: 1rem;
+    min-height: 60vh;
 }
 
 .userinfo {
@@ -11,7 +12,7 @@
 .logout {
     margin-top: 1rem;
     padding: .5rem;
-    background-color: #CD5C5C;
+    background-color: #E59A9A;
     color: #751919;
     border-radius: 8px;
     border: 1px solid #751919;
@@ -20,6 +21,22 @@
 .logout:hover {
     cursor: pointer;
     background-color: #751919;
-    border: 1px solid #CD5C5C;
-    color: #CD5C5C;
+    border: 1px solid #E59A9A;
+    color: #E59A9A;
+}
+
+.editprofile {
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+    margin-top: 1rem;
+}
+
+.useremail {
+    margin-top: .5rem;
+}
+
+.submitchanges {
+    margin-top: .5rem;
+    margin-bottom: 1rem;
 }

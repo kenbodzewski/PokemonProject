@@ -27,14 +27,14 @@
 }
 
 .likebutton {
-    background-color: #7DAD71;
+    background-color: #B2D4A9;
     border-radius: 8px;
     border: none;
     color: #255319;
 }
 
 .unlikebutton {
-    background-color: #CD5C5C;
+    background-color: #E59A9A;
     border-radius: 8px;
     border: none;
     color: #751919;
@@ -42,8 +42,10 @@
 
 .likebutton:hover{
     cursor: pointer;
+    border: 1px solid #255319; 
 }
 
 .unlikebutton:hover{
     cursor: pointer;
+    border: 1px solid #751919;
 }

@@ -3,6 +3,7 @@
     margin: auto;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    min-height: 60vh;
 }
 
 .forumentry {
@@ -80,7 +81,7 @@
 }
 
 .submitinput {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     border: 1px solid #255319;
     background-color: #7DAD71;
     color: white;

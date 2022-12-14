@@ -1,10 +1,20 @@
+.searchcontainer {
+    min-height: 60vh;
+}
+
 .search {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    max-width: 400px;
+    justify-content: start;
+    /* align-items: center; */
+    max-width: 500px;
     margin: auto;
     margin-top: 1rem;
+    /* min-height: 60vh; */
+}
+
+.instructions {
+    margin: auto;
 }
 
 .searchform {
@@ -20,7 +30,9 @@
 
 .searchresults {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
 }
 
 .noresults {

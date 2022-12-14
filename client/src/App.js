@@ -11,8 +11,10 @@ import Search from "./pages/Search";
 import Forum from "./pages/Forum";
 import Balls from "./pages/Balls";
 import ForumEntryDetails from "./pages/ForumEntryDetails";
-import "./styles/App.css";
 import CreateComment from "./components/CreateComment";
+import Privacy from "./pages/Privacy";
+import Footer from "./pages/Footer";
+import "./styles/App.css";
 
 function App() {
 	//const { userProfile, addUser, removeUser } = useAuth();
@@ -38,7 +40,10 @@ function App() {
 					<Route path="/CreateComment/:forumEntryId" element={<CreateComment />}></Route>
 
 					<Route path="/Profile" element={<Profile />}></Route>
+
+					<Route path="/Privacy" element={<Privacy />}></Route>
 				</Routes>
+				<Footer></Footer>
 			</BrowserRouter>
 		</GoogleOAuthProvider>
 	);

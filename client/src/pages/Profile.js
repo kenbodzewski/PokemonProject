@@ -57,7 +57,7 @@ export default function Profile() {
 	}, [])
 
 	const onSubmit = (data) => {
-		console.log(userProfile._id);
+		//console.log(userProfile._id);
 		fetch(("/user/" + userProfile._id), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -70,38 +70,44 @@ export default function Profile() {
 			removeUser();
 			addUser(user);
 		})
+		.then(() => getForumEntries())
 	}
 
 	return (
 		<>
-			<form onSubmit={ handleSubmit(onSubmit) } className="editprofile">
-				<input { ...register("userName") } 
-					// placeholder={}
-					value={ userName }
-					required
-					onChange={ (e) => setUserName(e.target.value) }
-					/>
-				<input { ...register("email") } 
-					value={ userEmail }
-					onChange={ (e) => setUserEmail(e.target.value) }
-					/>
-				<input type="submit" className="submitinput"></input>
-        	</form>
-
-
-
-
 			<div className='userprofile'>
+				<h2>Accout Information</h2>
 				{/* <div className='userinfo'>{"User ID: " + userProfile._id}</div> */}
 				<div className='userinfo'>{"User Name: " + userProfile.userName}</div>
 				<div className='userinfo'>{"Email: " + userProfile.email}</div>
+
+				<form onSubmit={ handleSubmit(onSubmit) } className="editprofile">
+					<input { ...register("userName") } 
+						// placeholder={}
+						value={ userName }
+						required
+						onChange={ (e) => setUserName(e.target.value) }
+						/>
+					<input { ...register("email") } 
+						value={ userEmail }
+						required
+						onChange={ (e) => setUserEmail(e.target.value) }
+						className='useremail'
+						/>
+					<input 
+						value="Submit Changes"
+						type="submit" 
+						className="submitinput"
+						/>
+				</form>
+
+				<h2>Account Activity</h2>
 				<div className='userinfo'>{"Favorite PokeMon: "}</div>
 				{likes.map((pokemon) => {
 					return (
 						<span key={pokemon._id}>{pokemon.pokemonName + ", "}</span>
 					)
 				})}
-				<br/>
 				{forumEntries.map((entry) => {
 					return (
 						<Link to={"/ForumEntry/" + entry._id } key={ entry._id }>
@@ -112,7 +118,5 @@ export default function Profile() {
 				<button onClick={ logoutAndNavigate } className='logout' >Logout</button>
 			</div>
 		</>
-
-		
 	)
 }
