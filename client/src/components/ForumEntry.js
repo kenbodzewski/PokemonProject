@@ -7,16 +7,14 @@ export default function ForumEntry({ entry }) {
 	const navigate = useNavigate();
     
 	const getEntry = async () => {
-		// const user = await fetch("http://localhost:3001/user/" + entry.authorId);
-		//console.log(entry.authorId);
+		// only want to make fetch if an authorId exists otherwise fetch fails
 		if (entry.authorId !== ""){
 			try {
 				const user = await fetch("/user/" + entry.authorId);
 				const userJson = await user.json();
 				setName(userJson.userName);
-			} catch (error) {
-				//console.log({ message: error.message });
-				navigate("/error");
+			} catch {
+				setName("author not found");
 			}
 		}
 	}

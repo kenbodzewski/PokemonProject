@@ -22,7 +22,14 @@ export default function CreateForumEntry() {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).catch(() => navigate("/error"))
+        }).then(res => {
+            if (!res.ok){
+                throw new Error();
+            } else {
+                return res;
+            }
+        })
+        .catch(() => navigate("/error"))
 
         navigate('/Forum');
     };

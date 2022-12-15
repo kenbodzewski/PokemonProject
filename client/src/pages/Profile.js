@@ -9,6 +9,9 @@ import ForumEntry from '../components/ForumEntry';
 import '../styles/Profile.css';
 
 export default function Profile() {
+	// allows us to create a function for navigating away upon logout
+	const navigate = useNavigate();
+	
 	// allows us to use the userProfile and the removeUser to get user info and logout
 	const { userProfile, addUser, removeUser } = useAuth();
 	
@@ -17,9 +20,6 @@ export default function Profile() {
 	const [ userName, setUserName ] = useState(userProfile.userName);
 
 	const [ userEmail, setUserEmail ] = useState(userProfile.email);
-
-	// allows us to create a function for navigating away upon logout
-	const navigate = useNavigate();
 
 	// function for navigating home when the logout button is clicked
 	const navigateHome = () => {
@@ -45,10 +45,21 @@ export default function Profile() {
 	const [ likes, setLikes ] = useState([]);
 
 	const getLikes = async () => {
-		const likes = await fetch("/likesforuser/" + userProfile._id);
-		const likesJson = await likes.json();
-		setLikes(likesJson);
-		//console.log(likesJson);
+		try{
+			const likes = await fetch("/likesforuse/" + userProfile._id);
+			if (!likes.ok){
+				throw new Error('error');
+			}
+			const likesJson = await likes.json();
+			setLikes(likesJson);
+			//console.log(likesJson);
+		} catch {
+			setLikes([{
+				pokemonName: "could not find your favorite pokemon",
+				_id: "123456789"
+			}])
+		}
+		
 	}
 
 	useEffect(() => {
@@ -84,8 +95,8 @@ export default function Profile() {
 			<div className='userprofile'>
 				<h2>Accout Information</h2>
 				{/* <div className='userinfo'>{"User ID: " + userProfile._id}</div> */}
-				<div className='userinfo'>{"User Name: " + userProfile.userName}</div>
-				<div className='userinfo'>{"Email: " + userProfile.email}</div>
+				<div className='userinfo'>{"User Name: " + userName}</div>
+				<div className='userinfo'>{"Email: " + userEmail}</div>
 
 				<form onSubmit={ handleSubmit(onSubmit) } className="editprofile">
 					<input { ...register("userName") } 

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
+import pokeball from '../images/pokeball.png';
 import '../styles/Balls.css';
 
 export default function Balls({ url }) {
@@ -11,6 +12,13 @@ export default function Balls({ url }) {
     
     useEffect(() => {
         fetch(url)
+            .then((res) => {
+                if (!res.ok){
+                    throw new Error();
+                } else {
+                    return res;
+                }
+            })
             .then(response => response.json())
             .then(json => setState(json.items))
             .catch(() => navigate("/error"));
@@ -33,7 +41,6 @@ export default function Balls({ url }) {
 
 function Ball({ ballInfo }) {
     const name = ballInfo.name;
-    const navigate = useNavigate();
 
     const [ state, setState ] = useState({
         description: "",
@@ -53,7 +60,11 @@ function Ball({ ballInfo }) {
                 img: img
             });
         } catch (error) {
-            navigate("/error");
+            // navigate("/error");
+            setState({
+                description: "could not retrieve ball",
+                img: pokeball
+            });
         }
     };
 

@@ -32,6 +32,10 @@
     border-radius: 16px;
 }
 
+.sprite {
+    max-width: 100px;
+}
+
 h3 {
     padding-top: .5rem;
     border-top: 2px solid #9AD2F5;

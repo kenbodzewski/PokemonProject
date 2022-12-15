@@ -7,7 +7,6 @@ import pokeball from '../images/pokeball.png';
 
 export default function Pokemon(props) { // url
 	const { userProfile } = useAuth();
-	const navigate = useNavigate();
 
 	const [ pokemonInfo, setPokemon ] = useState({
 		name: "",
@@ -55,7 +54,15 @@ export default function Pokemon(props) { // url
 
 		} catch (error) {
 			//console.log({ message: error.message });
-			navigate("/error");
+			//navigate("/error");
+			setPokemon({
+				name: "could not fetch Pokemon",
+				image: pokeball,
+				types: "N/A",
+				number: "N/A",
+				height: "N/A",
+				weight: "N/A"
+			})
 		}  
 	};
 
@@ -84,7 +91,7 @@ export default function Pokemon(props) { // url
 
 function Like({ pokemonName, userId }) {
 	const [ likes, setLikes ] = useState(0);
-	const [allLikes, setAllLikes ] = useState('none');
+	const [allLikes, setAllLikes ] = useState('retrieving...');
 	const navigate = useNavigate();
 
 	// post a like for this user and pokemon
@@ -145,7 +152,7 @@ function Like({ pokemonName, userId }) {
 				.then(json => {
 					setAllLikes(json.length)
 				})
-				.catch(() => navigate("/error"));
+				.catch(() => setAllLikes("could not find likes"));
 		}
 	}
 
@@ -158,7 +165,7 @@ function Like({ pokemonName, userId }) {
 		<div className='likecontainer'>
 			<div>{"Likes: " + allLikes}</div>
 			{((likes === 0)) ? (<button onClick={ like } className='likebutton'>Like</button>) : 
-				((likes === 1) ? (<button onClick={ unlike } className='unlikebutton'>Unlike</button>) : (<div></div>))	
+				((likes === 1) ? (<button onClick={ unlike } className='unlikebutton'>Unlike</button>) : (<div>Could not find like</div>))	
 			}
 		</div>
 	)
