@@ -1,17 +1,19 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 import '../styles/Balls.css';
 
 export default function Balls({ url }) {
     const [ state, setState ] = useState([]);
+    const navigate = useNavigate();
     
     useEffect(() => {
         fetch(url)
             .then(response => response.json())
             .then(json => setState(json.items))
-            .catch(error => console.log({ message: error.message }))
+            .catch(() => navigate("/error"));
     }, [])
     
     const balltype = url.split("/");
@@ -31,6 +33,7 @@ export default function Balls({ url }) {
 
 function Ball({ ballInfo }) {
     const name = ballInfo.name;
+    const navigate = useNavigate();
 
     const [ state, setState ] = useState({
         description: "",
@@ -50,7 +53,7 @@ function Ball({ ballInfo }) {
                 img: img
             });
         } catch (error) {
-            console.log({ message: error.message });
+            navigate("/error");
         }
     };
 

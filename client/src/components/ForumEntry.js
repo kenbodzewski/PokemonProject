@@ -1,16 +1,23 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function ForumEntry({ entry }) {
 	const [ name, setName ] = useState("");
+	const navigate = useNavigate();
     
 	const getEntry = async () => {
 		// const user = await fetch("http://localhost:3001/user/" + entry.authorId);
 		//console.log(entry.authorId);
 		if (entry.authorId !== ""){
-			const user = await fetch("/user/" + entry.authorId);
-			const userJson = await user.json();
-			setName(userJson.userName);
+			try {
+				const user = await fetch("/user/" + entry.authorId);
+				const userJson = await user.json();
+				setName(userJson.userName);
+			} catch (error) {
+				//console.log({ message: error.message });
+				navigate("/error");
+			}
 		}
 	}
 

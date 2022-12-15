@@ -11,6 +11,7 @@ export default function Search() {
   const [ error, setError ] = useState(true);
   
   const onSubmit = (data) => {
+    setError(true);
     setPokemonName(data.searchinput);
   };
 
@@ -19,7 +20,6 @@ export default function Search() {
       if(pokemonName){
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
         if (!response.ok){
-          // console.log(response.ok);
           setError(true);
         } else {
           setError(false);

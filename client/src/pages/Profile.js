@@ -52,8 +52,13 @@ export default function Profile() {
 	}
 
 	useEffect(() => {
-		getForumEntries();
-		getLikes();
+		try {
+			getForumEntries();
+			getLikes();
+		} catch (error) {
+			//console.log({ message: error.message });
+			navigate("/error");
+		}	
 	}, [])
 
 	const onSubmit = (data) => {
@@ -71,6 +76,7 @@ export default function Profile() {
 			addUser(user);
 		})
 		.then(() => getForumEntries())
+		.catch(() => navigate("/error"))
 	}
 
 	return (

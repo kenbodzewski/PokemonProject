@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 import Pokemon from '../components/Pokemon';
 import '../styles/Pokemon.css';
 import pokeball from '../images/pokeball.png';
 
 export default function Home() {
+	const navigate = useNavigate();
+
 	const [ url, setUrl ] = useState('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=52');
 	const [ pokemons, setPokemons ] = useState([]);
 	const [ next, setNext ] = useState([]);
@@ -21,7 +24,8 @@ export default function Home() {
 				setPrev(json.previous.replace("limit=10", "limit=52").replace("offset=1134", "offset=1092"));
 			}
         } catch (error) {
-            console.log({ message: error.message });
+            // console.log({ message: error.message });
+			navigate("/error");
         }  
     };
 

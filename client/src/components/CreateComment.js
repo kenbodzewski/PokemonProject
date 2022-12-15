@@ -7,6 +7,7 @@ import useAuth from '../store/Auth';
 export default function CreateComment({ forumId, getComments }) {
     const { register, handleSubmit } = useForm();
     const { userProfile } = useAuth();
+    const navigate = useNavigate();
     const [ placeholder, setPlaceholder] = useState("");
 
     const onSubmit = (data) => {
@@ -25,6 +26,7 @@ export default function CreateComment({ forumId, getComments }) {
         // this is to refresh the state in the ForumEntryDetails component causing the page to rerender with the new comment included
         }).then(() => getComments())
         .then(() => setPlaceholder(""))
+        .catch(() => navigate("/error"));
     };
   
     return (

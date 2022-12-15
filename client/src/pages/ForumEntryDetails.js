@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import useAuth from '../store/Auth';
 import ForumEntry from '../components/ForumEntry';
@@ -9,6 +10,7 @@ import CreateComment from '../components/CreateComment';
 
 export default function ForumEntryDetails() {
 	const { userProfile } = useAuth();
+	const navigate = useNavigate();
 
 	const [ forumEntry, setForumEntry ] = useState({
 		authorId: "",
@@ -41,10 +43,6 @@ export default function ForumEntryDetails() {
 			entryTitle: entryTitle,
 			_id: _id
 		})
-		
-		// setForumEntry([entryJson]);
-		// console.log(entryJson);
-		// setForumId(entryJson._id)
 	}
 
 	// get all the comments associated with this forumId (set above in getForum)
@@ -55,8 +53,13 @@ export default function ForumEntryDetails() {
 	}
   
 	useEffect(() => {
-		getForum();
-		getComments();
+		try {
+			getForum();
+			getComments();
+		} catch (error) {
+			//console.log({ message: error.message });
+			navigate("/error");
+		}
 	}, [])
 
     return (

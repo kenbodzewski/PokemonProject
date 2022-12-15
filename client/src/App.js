@@ -14,6 +14,7 @@ import ForumEntryDetails from "./pages/ForumEntryDetails";
 import CreateComment from "./components/CreateComment";
 import Privacy from "./pages/Privacy";
 import Footer from "./pages/Footer";
+import Error from "./pages/Error";
 import "./styles/App.css";
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
 					<Route path="/Profile" element={<Profile />}></Route>
 
 					<Route path="/Privacy" element={<Privacy />}></Route>
+					
+					<Route path="/error" element={<Error/>}></Route>
+					<Route path="*" element={<Error />}></Route>
 				</Routes>
 				<Footer></Footer>
 			</BrowserRouter>

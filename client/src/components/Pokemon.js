@@ -1,11 +1,13 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import useAuth from '../store/Auth';
+import { useNavigate } from 'react-router-dom';
 
 import pokeball from '../images/pokeball.png';
 
 export default function Pokemon(props) { // url
 	const { userProfile } = useAuth();
+	const navigate = useNavigate();
 
 	const [ pokemonInfo, setPokemon ] = useState({
 		name: "",
@@ -52,52 +54,10 @@ export default function Pokemon(props) { // url
 			})
 
 		} catch (error) {
-			console.log({ message: error.message });
+			//console.log({ message: error.message });
+			navigate("/error");
 		}  
 	};
-
-
-	// // setting all the values for the the states of the Pokemon
-	// const [ name, setName ] = useState("");
-	// const [ image, setImage ] = useState("");
-	// const [ types, setTypes ] = useState("");
-	// const [ number, setNumber] = useState("");
-	// const [ height, setHeight] = useState("");
-	// const [ weight, setWeight ] = useState("");
-
-	// const pokemon = async () => {
-	// 	try {
-	// 		const response = await fetch(props.url);
-	// 		const json = await response.json();
-	// 		// change the string for the name to all uppercase BEFORE using setPokemon
-	// 		setName(json.name.toUpperCase());
-	// 		// set the image url 
-	// 		setImage(json.sprites.other["official-artwork"].front_default);
-	// 		// if the url is null then set it to default image
-	// 		if (json.sprites.other["official-artwork"].front_default === null) {
-	// 			setImage(pokeball);
-	// 		}
-	// 		// if there is more than one type then assign both to a string
-	// 		if (json.types.length === 2){
-	// 			setTypes(json.types[0].type.name + ", " + json.types[1].type.name);
-	// 		} else { // otherwise just add the one tupe to the string
-	// 			setTypes(json.types[0].type.name);
-	// 		}
-	// 		// if the Pokemon's ID is over 905 then set this to N/A because its not actually the #
-	// 		if (Number(json.id) > 905){
-	// 			setNumber('N/A');
-	// 		} else { // otherwise just set the number to the Id
-	// 			setNumber(json.id);
-	// 		}
-	// 		// set the height of the Pokemon
-	// 		setHeight(json.height);
-	// 		// set the weight of the Pokemon
-	// 		setWeight(json.weight);
-	// 	} catch (error) {
-	// 		console.log({ message: error.message });
-	// 	}  
-	// };
-	
 
 	useEffect(() => {
         pokemon()
@@ -119,27 +79,13 @@ export default function Pokemon(props) { // url
 				<div>{"Weight: " + (pokemonInfo.weight/10) + " kilograms" }</div>
 			</div>
 		</div>
-		// <div className='pokemoncard'>
-		// 	<img src={ image } alt={ name } className="pokepic" />
-		// 	<div className='info'>
-		// 		{userProfile ? (
-		// 			<Like pokemonName={ name } userId={ userProfile._id }/>
-		// 		) : (
-		// 			<div></div>
-		// 		)}
-		// 		<div className='pokename'>{ name }</div>
-		// 		<div>{"Pokemon #: " + number }</div>
-		// 		<div>{"Type(s): " + types }</div>
-		// 		<div>{"Height: " + (height/10) + " meters" }</div>
-		// 		<div>{"Weight: " + (weight/10) + " kilograms" }</div>
-		// 	</div>
-		// </div>
   	)
 }
 
 function Like({ pokemonName, userId }) {
 	const [ likes, setLikes ] = useState(0);
 	const [allLikes, setAllLikes ] = useState('none');
+	const navigate = useNavigate();
 
 	// post a like for this user and pokemon
 	const like = () => {
@@ -155,6 +101,7 @@ function Like({ pokemonName, userId }) {
         })
 			.then(() => findlike())
 			.then(() => findlikes())
+			.catch(() => navigate("/error"));
 	}
 
 	// delete a like for this user and pokemon
@@ -171,22 +118,17 @@ function Like({ pokemonName, userId }) {
         })
 			.then(() => findlike())
 			.then(() => findlikes())
+			.catch(() => navigate("/error"));
 	}
 
 	// 
 	const findlike = async () => {
-		//console.log(pokemonName);
 		if (pokemonName !== null && pokemonName !== ""){
-			// const url = new URL(`http://localhost:3001/like/`);
-			// url.search = new URLSearchParams({
-			// 	pokemonName: pokemonName,
-			// 	userId: userId
-			// });
 			const url = '/like/?pokemonName=' + pokemonName + "&userId=" + userId;
-			//console.log(url);
 			fetch(url)
 				.then(res => res.json())
 				.then(json => setLikes(json.length))
+				.catch(() => navigate("/error"));
 		}
 	}
 
@@ -202,12 +144,8 @@ function Like({ pokemonName, userId }) {
 				.then(res => res.json())
 				.then(json => {
 					setAllLikes(json.length)
-					// json.map(like => {
-					// 	if (like.userId === userId){
-					// 		setLikes(likes + 1);
-					// 	}
-					// })
 				})
+				.catch(() => navigate("/error"));
 		}
 	}
 

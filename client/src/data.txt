@@ -1,3 +1,5 @@
+file where I brainstormed for schemas for the DB
+
 user:
     _id
     __type (user or admin)
