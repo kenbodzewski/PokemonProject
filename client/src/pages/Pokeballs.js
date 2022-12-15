@@ -1,6 +1,8 @@
+// external imports
 import React from 'react';
 import { Link } from "react-router-dom";
 
+// static page that gives links to different types of Pokeballs
 export default function Pokeballs() {
     return (
         <div className='contentwrapper'>
@@ -13,5 +15,3 @@ export default function Pokeballs() {
         </div>
     )
 }
-
-<Link to="/PokeBalls">Poke-Balls</Link>

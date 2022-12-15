@@ -1,6 +1,8 @@
+// external imports
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+// generic footer giving my information and a link to the Privacy Policy
 export default function Footer() {
   return (
     <div className='footercontainer'>
