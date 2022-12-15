@@ -102,7 +102,7 @@ export default function Profile() {
 				</form>
 
 				<h2>Account Activity</h2>
-				<div className='userinfo'>{"Favorite PokeMon: "}</div>
+				<div className='userinfo'>{"Favorite Pokemon: "}</div>
 				{likes.map((pokemon) => {
 					return (
 						<span key={pokemon._id}>{pokemon.pokemonName + ", "}</span>

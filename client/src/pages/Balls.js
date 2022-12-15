@@ -18,7 +18,7 @@ export default function Balls({ url }) {
 
     return (
         <div className='contentwrapper'>
-            <Link to="/PokeBalls" className='back'>&lt; Back to PokeBalls</Link> 
+            <Link to="/PokeBalls" className='back'>&lt; Back to Poke Balls</Link> 
             <h1>{ balltype[ balltype.length - 1 ].toUpperCase() }</h1>
             <div className='ballscontainer'>
                 {state.map((ballInfo) => {

@@ -9,12 +9,6 @@ export default function Search() {
   const { register, handleSubmit } = useForm();
   const [ pokemonName, setPokemonName ] = useState("");
   const [ error, setError ] = useState(true);
-
-
-  const search = (searchText) => {
-    setPokemonName(searchText);
-    // console.log(pokemonName);
-  } 
   
   const onSubmit = (data) => {
     setPokemonName(data.searchinput);

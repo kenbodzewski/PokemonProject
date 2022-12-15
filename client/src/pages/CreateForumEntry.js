@@ -30,8 +30,17 @@ export default function CreateForumEntry() {
         <div className='forumwrapper'>
             <Link to="/Forum" className='back'>&lt; Back to Forum</Link>
             <form onSubmit={handleSubmit(onSubmit)} className="createforumentry">
-                <input { ...register("entryTitle") } placeholder="Title" className="titleinput" />
-                <textarea { ...register("entryMessage") } placeholder="Message" className="textinput" />
+                <input 
+                    { ...register("entryTitle") } 
+                    placeholder="Title" 
+                    required
+                    className="titleinput" 
+                    />
+                <textarea 
+                    { ...register("entryMessage") } 
+                    placeholder="Message" 
+                    required
+                    className="textinput" />
                 <input type="submit" className="submitinput"></input> 
             </form>
         </div>

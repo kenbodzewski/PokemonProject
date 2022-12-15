@@ -202,17 +202,17 @@ function Like({ pokemonName, userId }) {
 				.then(res => res.json())
 				.then(json => {
 					setAllLikes(json.length)
-					json.map(like => {
-						if (like.userId === userId){
-							setLikes(likes + 1);
-						}
-					})
+					// json.map(like => {
+					// 	if (like.userId === userId){
+					// 		setLikes(likes + 1);
+					// 	}
+					// })
 				})
 		}
 	}
 
 	useEffect(() => {
-		//findlike();
+		findlike();
 		findlikes();
 	}, [pokemonName])
 

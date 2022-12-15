@@ -17,7 +17,7 @@ export default function Navbar() {
         </div>
         <ul className='navwrapper'>
             <li><Link to="/" className='navlink'>Home</Link></li>
-            <li><Link to="/PokeBalls" className='navlink'>PokeBalls</Link></li>
+            <li><Link to="/PokeBalls" className='navlink'>Poke Balls</Link></li>
             {/* <li><Link to="/Berries" className='navlink'>Berries</Link></li> */}
             <li><Link to="/Forum" className='navlink'>Forum</Link></li>
             <li><Link to="/Search" className='navlink'>Search</Link></li>
