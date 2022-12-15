@@ -46,7 +46,7 @@ export default function Profile() {
 
 	const getLikes = async () => {
 		try{
-			const likes = await fetch("/likesforuse/" + userProfile._id);
+			const likes = await fetch("/likesforuser/" + userProfile._id);
 			if (!likes.ok){
 				throw new Error('error');
 			}
