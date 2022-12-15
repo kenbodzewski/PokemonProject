@@ -3,23 +3,30 @@ import express, { request } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
-// my modules
+
+// my modules (that are models for DB documents)
 import ForumEntry from './models/forumEntry.js';
 import User from './models/user.js';
 import Like from './models/likes.js';
 import Comment from './models/comments.js';
 
+// allows us to make reference to variables in the .env file
+dotenv.config() 
 
-dotenv.config() // allows us to make reference to variables in the .env file
-
-const app = express() // creates the server
+// creating express server
+const app = express() 
+// sets port to either 3001 or env variable if it exists
 const PORT = process.env.PORT || 3001;
 
+// allows for requests to be made from a location other than this server's
 app.use(cors());
-app.use(express.json()); // this allows the server to take in a json in the body of an http request
 
-app.get('/', (req, res) => { // if there is a get request at home then return the res.send('Hello World!)
-  res.send('PokemonProject Back End'); 
+// this allows the server to take in a json in the body of an http request
+app.use(express.json()); 
+
+// gives a landing page for this server, not necessary
+app.get('/', (req, res) => { // if there is a get request at home then return the res.send( 'PokemonProject Back End' )
+  res.send( 'PokemonProject Back End' ); 
 })
 
 /**
@@ -109,7 +116,6 @@ app.post('/user', async (req, res) => {
 })
 
 // check to see if a user exists
-// TODO: this needs to be updated to only return non-private data?
 app.get('/user/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -122,7 +128,7 @@ app.get('/user/:id', async (req, res) => {
 // post to update user at /user
 app.post('/user/:id', async (req, res) => {
   try {
-    // https://mongoosejs.com/docs/tutorials/findoneandupdate.html
+    // https://mongoosejs.com/docs/tutorials/findoneandupdate.html helpful url for how this mongoose method works
     const filter = {
       _id: req.params.id
     }
@@ -206,7 +212,7 @@ app.get('/likes', async (req, res) => {
 // url of mongo database
 const connection_url = process.env.CONNECTION_URL;
 
-// connecting to mongodb
+// connecting to mongodb and running the server
 mongoose.connect(connection_url) 
   .then(() => app.listen(
     PORT, () => console.log(`Server running on port: ${PORT}`)

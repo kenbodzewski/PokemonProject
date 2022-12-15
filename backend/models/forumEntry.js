@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-const { Schema } = mongoose;
 
+const { Schema } = mongoose;
+// schema for singular forum entries
 const entrySchema = new Schema({
     authorId: String,
     date: {
@@ -10,8 +11,7 @@ const entrySchema = new Schema({
     entryTitle: String,
     entryMessage: String
 });
-// a collection called forumentries inside the database specified in the url in the .env file
-// it know how to change ForumEntry to forumentries, lowercase and plural
-const ForumEntry = mongoose.model('ForumEntry', entrySchema); 
 
+const ForumEntry = mongoose.model('ForumEntry', entrySchema); 
+// export model/schema for ForumEntry for use by server.js
 export default ForumEntry;

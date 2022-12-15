@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-const { Schema } = mongoose;
 
+const { Schema } = mongoose;
+// schema for comment documents
 const commentSchema = new Schema({
     authorId: String,
     forumEntryId: String,
@@ -10,8 +11,8 @@ const commentSchema = new Schema({
     },
     commentMessage: String
 });
-// a collection called forumentries inside the database specified in the url in the .env file
-// it know how to change ForumEntry to forumentries, lowercase and plural
-const Comment = mongoose.model('Comment', commentSchema); 
 
+
+const Comment = mongoose.model('Comment', commentSchema); 
+// export the model/schema so it can be used in server.js
 export default Comment;

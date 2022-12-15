@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const { Schema } = mongoose;
-
+// schema for users
 const userSchema = new Schema({
     _id: String,
     _type: String,
@@ -9,8 +9,7 @@ const userSchema = new Schema({
     email: String,
     image: String
 });
-// a collection called forumentries inside the database specified in the url in the .env file
-// it know how to change ForumEntry to forumentries, lowercase and plural
-const User = mongoose.model('user', userSchema); 
 
+const User = mongoose.model('user', userSchema); 
+// export User for use by server.js
 export default User;
