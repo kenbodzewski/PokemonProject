@@ -11,10 +11,10 @@ import Like from './models/likes.js';
 import Comment from './models/comments.js';
 
 // allows us to make reference to variables in the .env file
-dotenv.config() 
+dotenv.config();
 
 // creating express server
-const app = express() 
+const app = express();
 // sets port to either 3001 or env variable if it exists
 const PORT = process.env.PORT || 3001;
 
