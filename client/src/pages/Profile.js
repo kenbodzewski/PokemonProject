@@ -17,7 +17,7 @@ export default function Profile() {
 	
 	// allows us to use the userProfile and the removeUser to get user info and logout
 	const { userProfile, addUser, removeUser } = useAuth();
-	
+
 	// gives us acces to form hook
 	const { register, handleSubmit } = useForm();
 
@@ -137,7 +137,7 @@ export default function Profile() {
 			})}
 			{forumEntries.map((entry) => {
 				return (
-					<Link to={"/ForumEntry/" + entry._id } key={ entry._id } classname='forumpost'>
+					<Link to={"/ForumEntry/" + entry._id } key={ entry._id } className='forumpost'>
 						<ForumEntry entry={ entry } key={ entry._id + 1 } />
 					</Link>
 				)
