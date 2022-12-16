@@ -137,7 +137,7 @@ export default function Profile() {
 			})}
 			{forumEntries.map((entry) => {
 				return (
-					<Link to={"/ForumEntry/" + entry._id } key={ entry._id }>
+					<Link to={"/ForumEntry/" + entry._id } key={ entry._id } classname='forumpost'>
 						<ForumEntry entry={ entry } key={ entry._id + 1 } />
 					</Link>
 				)
