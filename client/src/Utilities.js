@@ -18,13 +18,13 @@ export const createOrGetUserAndLogin = async (response, addUser) => {
     }
 
     // if the user already exists then this we will find out here
-    const check = await fetch('/user/' + user._id)
+    const check = await fetch('http://localhost:3001/user/' + user._id)
         .then(res => res.json())
 
     // if check is equal to null that means that this user does not exist
     // in our database already so create a user
     if (check == null){
-        await fetch('/user/', {
+        await fetch('http://localhost:3001/user/', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {

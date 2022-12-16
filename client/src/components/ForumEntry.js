@@ -13,7 +13,7 @@ export default function ForumEntry({ entry }) { // takes in a forum entry object
 		// only want to make fetch if an authorId exists otherwise fetch fails
 		if (entry.authorId !== ""){
 			try {
-				const user = await fetch("/user/" + entry.authorId);
+				const user = await fetch("http://localhost:3001/user/" + entry.authorId);
 				// dont need to explicitly throw an error because if the fetch failed
 				// then the below line will throw an error
 				const userJson = await user.json();

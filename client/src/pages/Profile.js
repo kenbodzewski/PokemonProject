@@ -45,7 +45,7 @@ export default function Profile() {
 
 	// get all forum entries this user has made
 	const getForumEntries = async () => {
-		const entry = await fetch("/forumEntryForUser/" + userProfile._id);
+		const entry = await fetch("http://localhost:3001/forumEntryForUser/" + userProfile._id);
 		// dont need to explicity throw error because if fetch fails below line will
 		// (catch is located in the function that calls this one)
 		const entryJson = await entry.json();
@@ -58,7 +58,7 @@ export default function Profile() {
 	// get all the likes that this user has made
 	const getLikes = async () => {
 		try{
-			const likes = await fetch("/likesforuser/" + userProfile._id);
+			const likes = await fetch("http://localhost:3001/likesforuser/" + userProfile._id);
 			if (!likes.ok){
 				throw new Error('error');
 			}
@@ -86,7 +86,7 @@ export default function Profile() {
 	// form to update user info is submitted
 	const onSubmit = (data) => {
 		//console.log(userProfile._id);
-		fetch(("/user/" + userProfile._id), {
+		fetch(("http://localhost:3001/user/" + userProfile._id), {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -105,9 +105,9 @@ export default function Profile() {
 
 	return (
 		<div className='userprofile'>
-			<h2>Accout Information</h2>
-			<div className='userinfo'>{"User Name: " + userName}</div>
-			<div className='userinfo'>{"Email: " + userEmail}</div>
+			<h2>Account Information</h2>
+			{/* <div className='userinfo'>{"User Name: " + userName}</div>
+			<div className='userinfo'>{"Email: " + userEmail}</div> */}
 
 			<form onSubmit={ handleSubmit(onSubmit) } className="editprofile">
 				<input { ...register("userName") } 

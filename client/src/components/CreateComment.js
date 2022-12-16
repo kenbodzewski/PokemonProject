@@ -25,7 +25,7 @@ export default function CreateComment({ forumId, getComments }) {
         // added this so that it will set date to current time rather than when server is booted up
         data.date = Date.now(); 
         // POST to the comment endpoint on our backend the proxy set in package.json precedes the /comment
-        fetch("/comment", {
+        fetch("http://localhost:3001/comment", {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {

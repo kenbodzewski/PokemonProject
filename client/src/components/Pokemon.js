@@ -116,7 +116,7 @@ function Like({ pokemonName, userId }) {
 
 	// post a like for this user and pokemon
 	const like = () => {
-		fetch("/like", {
+		fetch("http://localhost:3001/like", {
             method: 'POST',
             body: JSON.stringify({
 				pokemonName: pokemonName,
@@ -142,7 +142,7 @@ function Like({ pokemonName, userId }) {
 
 	// delete a like for this user and pokemon
 	const unlike = () => {
-		fetch("/like", {
+		fetch("http://localhost:3001/like", {
             method: 'DELETE',
             body: JSON.stringify({
 				pokemonName: pokemonName,
@@ -170,7 +170,7 @@ function Like({ pokemonName, userId }) {
 	const findlike = async () => {
 		// only look for a like if the name is not null or an empty string
 		if (pokemonName !== null && pokemonName !== ""){
-			const url = '/like/?pokemonName=' + pokemonName + "&userId=" + userId;
+			const url = 'http://localhost:3001/like/?pokemonName=' + pokemonName + "&userId=" + userId;
 			fetch(url)
 				.then(res => res.json()) // dont need to explicity throw error because below line will if response is bad
 				.then(json => setLikes(json.length))
@@ -182,7 +182,7 @@ function Like({ pokemonName, userId }) {
 	const findlikes = async () => {
 		//console.log(pokemonName);
 		if (pokemonName !== null && pokemonName !== ""){
-			const url = '/like/?pokemonName=' + pokemonName;
+			const url = 'http://localhost:3001/like/?pokemonName=' + pokemonName;
 			fetch(url)
 				.then(res => res.json()) // dont need to explicity throw error because below line will if response is bad
 				.then(json => setAllLikes(json.length))

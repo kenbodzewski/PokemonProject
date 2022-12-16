@@ -23,7 +23,7 @@ export default function CreateForumEntry() {
         data.authorId = userProfile._id;
         // added this so that it will set date to current time rather than when server is booted up
         data.date = Date.now(); 
-        fetch("/forumEntry", {
+        fetch("http://localhost:3001/forumEntry", {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -43,21 +43,29 @@ export default function CreateForumEntry() {
   
     return (
         <div className='forumwrapper'>
-            <Link to="/Forum" className='back'>&lt; Back to Forum</Link>
-            <form onSubmit={handleSubmit(onSubmit)} className="createforumentry">
-                <input 
-                    { ...register("entryTitle") } 
-                    placeholder="Title" 
-                    required
-                    className="titleinput" 
-                    />
-                <textarea 
-                    { ...register("entryMessage") } 
-                    placeholder="Message" 
-                    required
-                    className="textinput" />
-                <input type="submit" className="submitinput"></input> 
-            </form>
+            {/* even though you should not be able to get to this page unless you are logged in
+            I still wanted to add conditional rendering here in case someone tried to the exact URL */}
+            {userProfile ? (
+                <>
+                    <Link to="/Forum" className='back'>&lt; Back to Forum</Link>
+                    <form onSubmit={handleSubmit(onSubmit)} className="createforumentry">
+                        <input 
+                            { ...register("entryTitle") } 
+                            placeholder="Title" 
+                            required
+                            className="titleinput" 
+                            />
+                        <textarea 
+                            { ...register("entryMessage") } 
+                            placeholder="Message" 
+                            required
+                            className="textinput" />
+                        <input type="submit" className="submitinput"></input> 
+                    </form>
+                </>
+            ) : (
+                <h3>You must be logged in to create a forum post.</h3>
+            )}
         </div>
   )
 }

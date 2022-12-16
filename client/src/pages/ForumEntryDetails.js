@@ -33,7 +33,7 @@ export default function ForumEntryDetails() {
 
 	// get the forum entry associated with the given id (this is just one entry not a group)
 	const getForum = async () => {
-		const entry = await fetch("/forumEntry/" + params.id);
+		const entry = await fetch("http://localhost:3001/forumEntry/" + params.id);
 		// dont need to explicity throw error because if fetch fails below line will
 		// (catch is located in the function that calls this one)
 		const entryJson = await entry.json();
@@ -56,7 +56,7 @@ export default function ForumEntryDetails() {
 
 	// get all the comments associated with this forumId (set above in getForum)
 	const getComments = async () => {
-		const comments = await fetch("/comments/" + params.id);
+		const comments = await fetch("http://localhost:3001/comments/" + params.id);
 		// dont need to explicity throw error because if fetch fails below line will
 		// (catch is located in the function that calls this one)
 		const commentsJson = await comments.json();
@@ -103,7 +103,7 @@ function Comment({ comment }) {
 
 	// get the author's name using the id (from prop)
 	const getAuthorName = async () => {
-		fetch('/user/' + comment.authorId)
+		fetch('http://localhost:3001/user/' + comment.authorId)
 			// dont need to explicity throw error because if fetch fails below line will
 			.then(response => response.json())
 			.then(author => setAuthorName(author.userName))

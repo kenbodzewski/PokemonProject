@@ -21,7 +21,7 @@ export default function Forum() {
     const entries = async () => {
         try {
             // notice that the call to the endpoint is to forumEntries, not forum
-            const response = await fetch("/forumEntries");
+            const response = await fetch("http://localhost:3001/forumEntries");
             // dont need to explicity throw error because if fetch fails below line will
             const responseJson = await response.json();
             setState(responseJson);
