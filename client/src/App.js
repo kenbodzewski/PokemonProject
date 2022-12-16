@@ -13,7 +13,6 @@ import Search from "./pages/Search";
 import Forum from "./pages/Forum";
 import Balls from "./pages/Balls";
 import ForumEntryDetails from "./pages/ForumEntryDetails";
-import CreateComment from "./components/CreateComment";
 import Privacy from "./pages/Privacy";
 import Footer from "./pages/Footer";
 import Error from "./pages/Error";
@@ -41,7 +40,7 @@ function App() {
 					<Route path="/Forum" element={<Forum />}></Route>
 					<Route path="/CreateForumEntry" element={<CreateForumEntry />}></Route>
 					<Route path="/ForumEntry/:id" element={<ForumEntryDetails />}></Route>
-					<Route path="/CreateComment/:forumEntryId" element={<CreateComment />}></Route>
+					{/* <Route path="/CreateComment/:forumEntryId" element={<CreateComment />}></Route> */}
 
 					<Route path="/Profile" element={<Profile />}></Route>
 
@@ -49,7 +48,7 @@ function App() {
 					
 					{/* error page and a catch all for any routes that people try to visit that dont exist */}
 					<Route path="/error" element={<Error/>}></Route>
-					<Route path="*" element={<Error />}></Route>
+					<Route path="*" element={<Home />}></Route>
 				</Routes>
 				<Footer></Footer>
 			</BrowserRouter>
