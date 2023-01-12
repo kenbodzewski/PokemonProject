@@ -13,5 +13,3 @@ To run this project :
 The project should now be running, and the website should automatically open in your browser. The website can take a little while to get started.
 If the project did not open in your browser even after the frontend and backend are running successfully, then you can open a new browser window and navigate to: localhost:3000
 
-NOTE TO TA's: 
-1. If you run into any issues trying to run the application please email me at ken.bodzewski@gmail.com. I will have my phone with me all weekend and I get push notifications for this email but not my school email.
