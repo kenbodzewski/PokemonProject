@@ -5,7 +5,7 @@ To run this project :
 1. clone this repository and pull to make sure you have all contents
 2. cd into 'client' directory and run command 'npm install'
 3. cd into 'backend' directory and run command 'npm install'
-4. set up .env files as directed in email
+4. set up .env files as directed in email (only provided to instructors for grading)
 5. now you will need to have two terminals open 
 6. in the first terminal cd to 'backend' directory and run command 'npm start' (important to run the backend first)
 7. in the second terminal cd to 'client' directory and run command 'npm start' (only run client once backed in successfully running)
