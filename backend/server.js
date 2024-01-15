@@ -37,7 +37,6 @@ app.get('/forumEntries', async (req, res) => {
   try {
     // find all entries in collection
     const forumEntries = await ForumEntry.find(); 
-    //console.log(forumEntries); // print entries from collection found above
     res.status(200).json(forumEntries);
   } catch {
       res.status(400).json({message: error.message}); // return a status and error message
