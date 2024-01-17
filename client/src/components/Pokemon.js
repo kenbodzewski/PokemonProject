@@ -9,97 +9,35 @@ import pokeball from '../images/pokeball.png';
 
 // this component displays a single pokemon using a passed in url from whatever calls it
 export default function Pokemon(props) { // url
-	// need to be able to display different view based on whether there is a logged
-	// in user and who that user is
-	const { userProfile } = useAuth();
+    // check to see if there are two types or one and adjust the string accordingly
+    let typeText = props.pokemon.type_name_1;
+        if (props.pokemon.type_name_2 != null){
+            typeText = 'Types: ' + typeText + ', ' + props.pokemon.type_name_2;
+        } else {
+            typeText = 'Type: ' + typeText;
+        }
 
-	// state for holding all the information needed to properly present a pokemon and its info
-	const [ pokemonInfo, setPokemon ] = useState({
-		name: "",
-		image: "",
-		types: "",
-		number: "",
-		height: "",
-		weight: ""
-	});
-
-	// retrieves all the necessary informaion on a pokemon using the url prop
-	const pokemon = async () => {
-		try {
-			// fetch pokemon's info
-			const response = await fetch(props.url);
-			// dont need to explicity throw error because below line will if response is bad
-			const json = await response.json();
-			// change the string for the name to all uppercase BEFORE using setPokemon
-			const name = json.name.toUpperCase();
-			// set the image url 
-			let image = json.sprites.other["official-artwork"].front_default;
-			// if the url is null then set it to default image
-			if (json.sprites.other["official-artwork"].front_default === null) {
-				image = pokeball;
-			}
-			// if there is more than one type then assign both to a string
-			let types = json.types[0].type.name;
-			if (json.types.length === 2){
-				types += ", " + json.types[1].type.name;
-			} 
-			// if the number is over 905 it isnt actually a valid Pokemon number
-			let number = json.id;
-			if (Number(json.id) > 905){
-				number = 'N/A';
-			}
-			// set the height of the Pokemon
-			const height = json.height;
-			// set the weight of the Pokemon
-			const weight = json.weight;
-
-			// set the pokemon state using all the information retrieved above
-			setPokemon({
-				name: name,
-				image: image,
-				types: types,
-				number: number,
-				height: height,
-				weight: weight
-			})
-
-		} catch (error) {
-			// if there was an error when fetching the Pokemon's info, set its information below
-			// this way the component will load with static data, instead of crashing the page
-			setPokemon({
-				name: "could not fetch Pokemon",
-				image: pokeball,
-				types: "N/A",
-				number: "N/A",
-				height: "N/A",
-				weight: "N/A"
-			})
-		}  
-	};
-
-	// get the pokemon's information when the component renders
-	useEffect(() => {
-        pokemon()
-    }, [props.url]) // when the prop changes call useEffect, this is used in the search page
-
-  	return (
-		// display the Pokemon info
-		<div className='pokemoncard'>
-			<img src={ pokemonInfo.image } alt={ pokemonInfo.name } className="pokepic" />
-			<div className='info'>
-				{/* conditional rendering to determine whether likes and buttons should be displayed (only when a user is logged in) */}
-				{userProfile ? (
-					<Like pokemonName={ pokemonInfo.name } userId={ userProfile._id }/>
-				) : (
-					<div></div>
-				)}
-				<div className='pokename'>{ pokemonInfo.name }</div>
-				<div>{"Pokemon #: " + pokemonInfo.number }</div>
-				<div>{"Type(s): " + pokemonInfo.types }</div>
-				<div>{"Height: " + (pokemonInfo.height/10) + " meters" }</div>
-				<div>{"Weight: " + (pokemonInfo.weight/10) + " kilograms" }</div>
-			</div>
-		</div>
+    return (	
+            <>
+                <div className='pokemoncard'>
+                    {/* TODO: there is one pokemon with no image_url, maybe not worth checking
+                    this for all 1000+ pokemon when only one has an issue? */}
+                    {props.pokemon.img_url != 'None' ? (
+                        <img src={ props.pokemon.img_url } alt={ props.pokemon.poke_name.toUpperCase() } className="pokepic" />
+                    ):(
+                        <img src={ pokeball } alt={ props.pokemon.poke_name.toUpperCase() } className="pokepic" />
+                    )}
+                    <div className='info'>
+                        <div className='pokename'>{ props.pokemon.poke_name.toUpperCase() }</div>
+                        <div>Pokemon #: {props.pokemon.pokemon_id}</div>
+                        <div>{ typeText }</div>
+                        <div>Height: {props.pokemon.height / 10}  meters</div>
+                        <div>Weight: {props.pokemon.weight / 10} kilograms</div>
+                        <br></br>
+                        <div>Fun fact: {props.pokemon.fun_fact}</div>
+                    </div>
+                </div>
+            </>
   	)
 }
 
