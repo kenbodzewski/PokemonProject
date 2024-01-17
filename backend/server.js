@@ -49,8 +49,8 @@ const connectToMySQL = async () => {
 	try {
 		const MySqlConnection = await mysql.createConnection({
 		host: 'localhost',
-		user: 'ken',
-		password: 'vapor123',
+		user: 'pokeproject',
+		password: 'password',
 		database: 'pokedex_2',
 		});
 		console.log('Connected to MySQL');
@@ -249,22 +249,38 @@ app.get('/likes', async (req, res) => {
  * MySQL data endpoints
  */
 
-app.get('/pokemon/', async (req, res) => {
+app.get('/numpages', async (req, res) => {
 	try {
 		// instantiate an object/connection to execute a SQL query
 		const sqlConnection = await connectToMySQL();
 		const countQuery = 'SELECT COUNT(*) AS COUNT FROM POKEMON';
 		// execute the sql query and destructure the response to grab the results
-		let [count] = await sqlConnection.execute(countQuery);
+		let [results] = await sqlConnection.execute(countQuery);
+		results = results[0].COUNT;
+		if (results % 52 === 0){
+			results = results/52;
+		} else {
+			results = Math.floor(results/52) + 1;
+		}
+		const numPages = {numPages: results};
+		res.json(numPages);
+	} catch (error) {
+		console.log(error);
+	}
+})
+
+app.get('/pokemon/', async (req, res) => {
+	try {
 		const pageNum = req.query.page;
 		const pageSize = 52
 		const offset = (pageNum - 1) * pageSize;
-		
-		// 
+		// assemble query
 		const pokeQuery = `SELECT * FROM pokemon ORDER BY pokemon_id LIMIT ${pageSize} OFFSET ${offset}`;
+		// instantiate an object/connection to execute a SQL query
+		const sqlConnection = await connectToMySQL();
 		// execute the sql query and destructure the response to grab the results	
 		let [results] = await sqlConnection.execute(pokeQuery);
-		count = count[0].COUNT;
+		// respond with the results
 		res.json(results);
 	} catch (error) {
 		console.error('MySQL query error:', error);
