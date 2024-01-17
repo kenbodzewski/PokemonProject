@@ -2,6 +2,7 @@
 import express, { request } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import mysql from 'mysql2/promise';
 import * as dotenv from 'dotenv';
 
 // my modules (that are models for DB documents)
@@ -24,6 +25,42 @@ app.use(cors());
 // this allows the server to take in a json in the body of an http request
 app.use(express.json()); 
 
+
+
+/**
+ * ESTABLISHING MONGO CONNECTION
+ */
+const connectToMongoDB = async () => {
+	try {
+		const connection_url = process.env.CONNECTION_URL;
+		await mongoose.connect(connection_url);
+		console.log('Connected to MongoDB');
+	} catch (error) {
+		console.error('MongoDB connection error:', error);
+		throw error;
+	}
+};
+  
+/**
+ * ESTABLISHING MYSQL CONNECTION
+ * @returns THE MYSQL CONNECTION OBJECT
+ */
+const connectToMySQL = async () => {
+	try {
+		const MySqlConnection = await mysql.createConnection({
+		host: 'localhost',
+		user: 'ken',
+		password: 'vapor123',
+		database: 'pokedex_2',
+		});
+		console.log('Connected to MySQL');
+		return MySqlConnection;
+	} catch (error) {
+		console.error('MySQL connection error:', error);
+		throw error;
+	}
+};
+
 // gives a landing page for this server, not necessary
 app.get('/', (req, res) => { // if there is a get request at home then return the res.send( 'PokemonProject Back End' )
   res.send( 'PokemonProject Back End' ); 
@@ -38,7 +75,7 @@ app.get('/forumEntries', async (req, res) => {
     // find all entries in collection
     const forumEntries = await ForumEntry.find(); 
     res.status(200).json(forumEntries);
-  } catch {
+  } catch (error) {
       res.status(400).json({message: error.message}); // return a status and error message
   }
 })
@@ -141,7 +178,6 @@ app.post('/user/:id', async (req, res) => {
   }
 })
 
-
 /**
  * HTTP request for Like
  */
@@ -195,7 +231,6 @@ app.get('/likesforuser/:userId', async (req, res) => {
   }
 })
 
-
 // get requst to /likes
 app.get('/likes', async (req, res) => {
   try {
@@ -208,13 +243,90 @@ app.get('/likes', async (req, res) => {
   }
 })
 
-// url of mongo database
-const connection_url = process.env.CONNECTION_URL;
 
-// connecting to mongodb and running the server
-mongoose.connect(connection_url) 
-  .then(() => app.listen(
-    PORT, () => console.log(`Server running on port: ${PORT}`)
-  ))
-  .catch((error) => console.log(error.message));
 
+/**
+ * MySQL data endpoints
+ */
+
+app.get('/pokemon/', async (req, res) => {
+	try {
+		// instantiate an object/connection to execute a SQL query
+		const sqlConnection = await connectToMySQL();
+		const countQuery = 'SELECT COUNT(*) AS COUNT FROM POKEMON';
+		// execute the sql query and destructure the response to grab the results
+		let [count] = await sqlConnection.execute(countQuery);
+		const pageNum = req.query.page;
+		const pageSize = 52
+		const offset = (pageNum - 1) * pageSize;
+		
+		// 
+		const pokeQuery = `SELECT * FROM pokemon ORDER BY pokemon_id LIMIT ${pageSize} OFFSET ${offset}`;
+		// execute the sql query and destructure the response to grab the results	
+		let [results] = await sqlConnection.execute(pokeQuery);
+		count = count[0].COUNT;
+		res.json(results);
+	} catch (error) {
+		console.error('MySQL query error:', error);
+		res.status(500).json({ message: 'Internal Server Error' });
+	}
+});
+
+
+
+// Start the Express server after MongoDB and MySQL connections
+Promise.all([connectToMongoDB(), connectToMySQL()])
+	.then(() => {
+		app.listen(PORT, () => {
+			console.log(`Server is running on http://localhost:${PORT}`);
+		});
+	})
+	.catch((error) => {
+		console.log(error.message)
+	}
+);
+
+
+
+
+
+// garbage that I am not using anymore
+
+// let totalPokemonCount = await fetch('https://pokeapi.co/api/v2/pokemon/');
+// totalPokemonCount = await totalPokemonCount.json();
+// totalPokemonCount = totalPokemonCount.count;
+// console.log(totalPokemonCount);
+
+// app.get('/pokemon/', async (req, res) => {
+// 	try {
+// 		const pageNum = req.query.page;
+// 		let numOfPages = Math.floor(totalPokemonCount/52);
+// 		if (totalPokemonCount % 52 != 0){
+// 			numOfPages += 1;
+// 		}
+// 		const offset = (pageNum - 1) * 52;
+// 		const pageUrl = 'https://pokeapi.co/api/v2/pokemon/' + `?offset=${offset}&limit=52`;
+// 		console.log(pageUrl);
+// 		const pokeApi = await fetch(pageUrl);
+// 		const pokeApiJson = await pokeApi.json();
+// 		const nameAndUrlList = pokeApiJson.results;
+// 		const pokeList = [];
+// 		for (const nameAndUrl of nameAndUrlList){
+// 			const url = nameAndUrl.url;
+// 			const pokemonData = await fetch(url);
+// 			const pokemonDataJson = await pokemonData.json();
+// 			const pokemon = {
+// 				name: pokemonDataJson.name.toUpperCase(),
+// 				image: pokemonDataJson.sprites.other["official-artwork"].front_default,
+// 				types: pokemonDataJson.types,
+// 				number: pokemonDataJson.id,
+// 				height: pokemonDataJson.height,
+// 				weight: pokemonDataJson.weight
+// 			}
+// 			pokeList.push(pokemon);
+// 		}
+// 		res.status(200).json(pokeList);
+// 	} catch (error) {
+// 		res.status(400).json({message: error.message});
+// 	}
+// })
